@@ -206,6 +206,33 @@ function draw() {
     w / 2 + w / 8
   );
 
+  ctx.beginPath();
+  ctx.moveTo(w / 2, w / 2 - w / 20);
+  ctx.lineTo(w / 2, w / 2 + w / 20);
+  ctx.moveTo(w / 2 - w / 20, w / 2);
+  ctx.lineTo(w / 2 + w / 20, w / 2);
+  ctx.stroke();
+
+  ctx.fillText("N", w / 2 - ctx.measureText("N").width / 2, w / 2 - w / 18);
+
+  let compassHeadingRadians = (compassHeading * Math.PI) / 180;
+
+  ctx.translate(w / 2, w / 2);
+  ctx.rotate(compassHeadingRadians);
+  ctx.translate(-w / 2, -w / 2);
+  ctx.beginPath();
+  ctx.fillStyle = "#ff0000";
+  ctx.moveTo(w / 2 - w / 50, w / 2);
+  ctx.lineTo(w / 2 + w / 50, w / 2);
+  ctx.lineTo(w / 2, w / 2 - w / 20);
+  ctx.fill();
+  ctx.moveTo(w / 2 - w / 50, w / 2);
+  ctx.lineTo(w / 2, w / 2 + w / 20);
+  ctx.lineTo(w / 2 + w / 50, w / 2);
+  ctx.stroke();
+  ctx.translate(w / 2, w / 2);
+  ctx.rotate(-compassHeadingRadians);
+  ctx.translate(-w / 2, -w / 2);
   window.requestAnimationFrame(draw);
 }
 
