@@ -33,8 +33,6 @@ function App() {
     drawArc(ctx, w, w / 50, innerRadius, startAngle, endAngle, true);
     drawLabels(ctx, w, outerRadius, min, max, startAngle, endAngle, intervals);
     drawDigitalSpeed(ctx, w, value);
-    //digital gauge
-
     drawNeedle(
       ctx,
       w,
@@ -46,9 +44,7 @@ function App() {
       innerRadius,
       outerRadius
     );
-
     drawGPS(ctx, w, 60 - value);
-
     drawCompass(ctx, w, value * 6);
 
     window.requestAnimationFrame(draw);
@@ -56,7 +52,7 @@ function App() {
 
   useEffect(() => {
     window.requestAnimationFrame(draw);
-  });
+  }, []);
 
   return (
     <div>

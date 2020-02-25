@@ -40,7 +40,7 @@ export function drawCompass(ctx, w, compassHeading) {
   ctx.fillText(
     compassText,
     w / 2 - ctx.measureText(compassText).width / 2,
-    w / 2 + w / 8
+    w / 2 + w / 10
   );
 
   ctx.beginPath();
@@ -50,24 +50,31 @@ export function drawCompass(ctx, w, compassHeading) {
   ctx.lineTo(w / 2 + w / 20, w / 2);
   ctx.stroke();
 
-  ctx.fillText("N", w / 2 - ctx.measureText("N").width / 2, w / 2 - w / 18);
+  ctx.fillText("N", w / 2 - ctx.measureText("N").width / 2, w / 2 - w / 15 + 4);
+  ctx.fillText("S", w / 2 - ctx.measureText("S").width / 2, w / 2 + w / 15 + 4);
+  ctx.fillText("W", w / 2 - ctx.measureText("W").width / 2 - w / 15, w / 2 + 4);
+  ctx.fillText("E", w / 2 - ctx.measureText("E").width / 2 + w / 15, w / 2 + 4);
 
   let compassHeadingRadians = (compassHeading * Math.PI) / 180;
 
   ctx.translate(w / 2, w / 2);
   ctx.rotate(compassHeadingRadians);
   ctx.translate(-w / 2, -w / 2);
-  ctx.beginPath();
   ctx.fillStyle = "#ff0000";
+  ctx.beginPath();
   ctx.moveTo(w / 2 - w / 75, w / 2);
   ctx.lineTo(w / 2 + w / 75, w / 2);
   ctx.lineTo(w / 2, w / 2 - w / 20);
   ctx.lineTo(w / 2 - w / 75, w / 2);
   ctx.fill();
   ctx.stroke();
+
+  ctx.beginPath();
   ctx.moveTo(w / 2 - w / 75, w / 2);
   ctx.lineTo(w / 2, w / 2 + w / 20);
   ctx.lineTo(w / 2 + w / 75, w / 2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
   ctx.stroke();
   ctx.translate(w / 2, w / 2);
   ctx.rotate(-compassHeadingRadians);
