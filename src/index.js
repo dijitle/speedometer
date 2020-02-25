@@ -99,7 +99,11 @@ function draw() {
     w / 2 + outerRadius * 0.9 * Math.cos(angleOfSpeedometer),
     w / 2 + outerRadius * 0.9 * Math.sin(angleOfSpeedometer)
   );
+  ctx.shadowColor = "black";
+  ctx.shadowBlur = 15;
   ctx.stroke();
+
+  ctx.shadowBlur = 0;
 
   //GPS
   let stength = max - value; //meters
@@ -222,13 +226,15 @@ function draw() {
   ctx.translate(-w / 2, -w / 2);
   ctx.beginPath();
   ctx.fillStyle = "#ff0000";
-  ctx.moveTo(w / 2 - w / 50, w / 2);
-  ctx.lineTo(w / 2 + w / 50, w / 2);
+  ctx.moveTo(w / 2 - w / 75, w / 2);
+  ctx.lineTo(w / 2 + w / 75, w / 2);
   ctx.lineTo(w / 2, w / 2 - w / 20);
+  ctx.lineTo(w / 2 - w / 75, w / 2);
   ctx.fill();
-  ctx.moveTo(w / 2 - w / 50, w / 2);
+  ctx.stroke();
+  ctx.moveTo(w / 2 - w / 75, w / 2);
   ctx.lineTo(w / 2, w / 2 + w / 20);
-  ctx.lineTo(w / 2 + w / 50, w / 2);
+  ctx.lineTo(w / 2 + w / 75, w / 2);
   ctx.stroke();
   ctx.translate(w / 2, w / 2);
   ctx.rotate(-compassHeadingRadians);
