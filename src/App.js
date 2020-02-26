@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { drawCompass } from "./Compass";
 import { drawGPS } from "./GPS";
 import { drawArc, drawNeedle, drawLabels, drawDigitalSpeed } from "./Gauge";
 
 function App() {
+  const [value, setValue] = useState(0);
+  let currentValue = 0;
+
   let draw = () => {
     var canvas = document.getElementById("speedometer");
     var ctx = canvas.getContext("2d");
@@ -16,8 +19,6 @@ function App() {
 
     let outerRadius = w / 2.2;
     let innerRadius = w / 5;
-
-    let value = new Date().getSeconds();
 
     let min = 0;
     let max = 60;
@@ -33,6 +34,25 @@ function App() {
     drawArc(ctx, w, w / 50, innerRadius, startAngle, endAngle, true);
     drawLabels(ctx, w, outerRadius, min, max, startAngle, endAngle, intervals);
     drawDigitalSpeed(ctx, w, value);
+    drawGPS(ctx, w, 60 - value);
+
+    if (Math.abs(currentValue - value) > 1) {
+      currentValue -= (currentValue - value) / 2;
+
+      drawNeedle(
+        ctx,
+        w,
+        currentValue,
+        min,
+        max,
+        startAngle,
+        endAngle,
+        innerRadius,
+        outerRadius
+      );
+      drawCompass(ctx, w, currentValue * 6);
+    }
+
     drawNeedle(
       ctx,
       w,
@@ -44,15 +64,18 @@ function App() {
       innerRadius,
       outerRadius
     );
-    drawGPS(ctx, w, 60 - value);
     drawCompass(ctx, w, value * 6);
 
     window.requestAnimationFrame(draw);
   };
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      setValue(new Date().getSeconds());
+    }, 1000);
     window.requestAnimationFrame(draw);
-  }, []);
+    return () => clearInterval(intervalId);
+  }, [value]);
 
   return (
     <div>

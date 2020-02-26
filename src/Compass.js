@@ -40,7 +40,7 @@ export function drawCompass(ctx, w, compassHeading) {
   ctx.fillText(
     compassText,
     w / 2 - ctx.measureText(compassText).width / 2,
-    w / 2 + w / 10
+    w / 2 + w / 9
   );
 
   ctx.beginPath();
