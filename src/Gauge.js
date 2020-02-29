@@ -16,6 +16,7 @@ export function drawNeedle(
 
   ctx.beginPath();
   ctx.strokeStyle = "#FF0000";
+  ctx.lineWidth = w / 50;
   ctx.moveTo(
     w / 2 + innerRadius * 1.075 * Math.cos(angleOfSpeedometer),
     w / 2 + innerRadius * 1.075 * Math.sin(angleOfSpeedometer)

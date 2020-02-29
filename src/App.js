@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { drawCompass } from "./Compass";
-import { drawGPS } from "./GPS";
+import { drawGPS, drawCoords } from "./GPS";
 import { drawArc, drawNeedle, drawLabels, drawDigitalSpeed } from "./Gauge";
 
 function App() {
   const [value, setValue] = useState(0);
-  let currentValue = 0;
+  const [currentValue, setCurrentValue] = useState(0);
 
   let draw = () => {
     var canvas = document.getElementById("speedometer");
@@ -35,24 +35,7 @@ function App() {
     drawLabels(ctx, w, outerRadius, min, max, startAngle, endAngle, intervals);
     drawDigitalSpeed(ctx, w, value);
     drawGPS(ctx, w, 60 - value);
-
-    if (Math.abs(currentValue - value) > 1) {
-      currentValue -= (currentValue - value) / 2;
-
-      drawNeedle(
-        ctx,
-        w,
-        currentValue,
-        min,
-        max,
-        startAngle,
-        endAngle,
-        innerRadius,
-        outerRadius
-      );
-      drawCompass(ctx, w, currentValue * 6);
-    }
-
+    drawCoords(ctx, w, 41.234211, -89.481513);
     drawNeedle(
       ctx,
       w,

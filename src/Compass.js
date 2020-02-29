@@ -43,6 +43,8 @@ export function drawCompass(ctx, w, compassHeading) {
     w / 2 + w / 9
   );
 
+  ctx.lineWidth = 1;
+
   ctx.beginPath();
   ctx.moveTo(w / 2, w / 2 - w / 20);
   ctx.lineTo(w / 2, w / 2 + w / 20);
