@@ -9,8 +9,20 @@ function App() {
   const [currentValue, setCurrentValue] = useState(0);
 
   let draw = () => {
-    var canvas = document.getElementById("speedometer");
-    var ctx = canvas.getContext("2d");
+    let canvas = document.getElementById("speedometer");
+    let ctx = canvas.getContext("2d");
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    canvas.width = Math.min(width, height);
+    canvas.height = Math.min(width, height);
+
+    let marginY = height / 2 - Math.min(width, height) / 2;
+    let marginX = width / 2 - Math.min(width, height) / 2;
+
+    canvas.style =
+      "margin-top: " + marginY + "px; margin-left: " + marginX + "px";
 
     var w = canvas.width;
 
@@ -61,15 +73,8 @@ function App() {
   }, [value]);
 
   return (
-    <div>
-      <canvas
-        id="speedometer"
-        width="500"
-        height="500"
-        style={{
-          border: "1px solid black"
-        }}
-      ></canvas>
+    <div className="container-fluid">
+      <canvas id="speedometer"></canvas>
     </div>
   );
 }
