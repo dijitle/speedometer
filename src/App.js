@@ -11,13 +11,13 @@ function App() {
   let draw = () => {
     let canvas = document.getElementById("speedometer");
     let ctx = canvas.getContext("2d");
-    ctx.scale(2, 2);
+    ctx.scale(3, 3);
 
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    canvas.width = Math.min(width - 2, height - 2) * 2;
-    canvas.height = Math.min(width - 2, height - 2) * 2;
+    canvas.width = Math.min(width - 2, height - 2) * 3;
+    canvas.height = Math.min(width - 2, height - 2) * 3;
 
     let marginY = height / 2 - Math.min(width, height) / 2;
     let marginX = width / 2 - Math.min(width, height) / 2;
