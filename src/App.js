@@ -11,18 +11,26 @@ function App() {
   let draw = () => {
     let canvas = document.getElementById("speedometer");
     let ctx = canvas.getContext("2d");
+    ctx.scale(2, 2);
 
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    canvas.width = Math.min(width, height);
-    canvas.height = Math.min(width, height);
+    canvas.width = Math.min(width - 2, height - 2) * 2;
+    canvas.height = Math.min(width - 2, height - 2) * 2;
 
     let marginY = height / 2 - Math.min(width, height) / 2;
     let marginX = width / 2 - Math.min(width, height) / 2;
 
     canvas.style =
-      "margin-top: " + marginY + "px; margin-left: " + marginX + "px";
+      "margin-top: " +
+      marginY +
+      "px; margin-left: " +
+      marginX +
+      "px; width: " +
+      Math.min(width - 2, height - 2) +
+      "px; height: " +
+      Math.min(width - 2, height - 2);
 
     var w = canvas.width;
 
@@ -39,6 +47,7 @@ function App() {
     ctx.lineCap = "round";
 
     ctx.clearRect(0, 0, w, w);
+
     ctx.strokeStyle = "#000000";
     ctx.fillStyle = "#000000";
 
