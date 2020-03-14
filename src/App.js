@@ -10,6 +10,8 @@ function App() {
   const [compassDir, setCompassDir] = useState(0);
   const [compassDirNeedle, setCompassDirNeedle] = useState(0);
   const [gpsStrength, setGpsStrength] = useState(0);
+  const [lat, setLat] = useState(0);
+  const [lon, setLon] = useState(0);
 
   let draw = () => {
     let canvas = document.getElementById("speedometer");
@@ -59,7 +61,7 @@ function App() {
     drawLabels(ctx, w, outerRadius, min, max, startAngle, endAngle, intervals);
     drawDigitalSpeed(ctx, w, speed);
     drawGPS(ctx, w, gpsStrength);
-    drawCoords(ctx, w, 41.234211, -89.481513);
+    drawCoords(ctx, w, lat, lon);
     drawNeedle(
       ctx,
       w,
@@ -109,15 +111,22 @@ function App() {
     }
   };
 
+  let watchPos = pos => {
+    setLat(pos.coords.latitude);
+    setLon(pos.coords.longitude);
+    setGpsStrength(pos.coords.accuracy);
+    setCompassDir(pos.coords.heading === null ? 0 : pos.coords.heading);
+    setSpeed(pos.coords.speed === null ? 0 : pos.coords.speed);
+  };
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSpeed(new Date().getSeconds());
-      setCompassDir(new Date().getSeconds() * 6);
-      setGpsStrength(60 - new Date().getSeconds());
-    }, 1000);
-    window.requestAnimationFrame(draw);
-    return () => clearInterval(intervalId);
-  }, [speed, speedNeedle, compassDir, compassDirNeedle, gpsStrength]);
+    const geoId = navigator.geolocation.watchPosition(watchPos);
+    const drawId = window.requestAnimationFrame(draw);
+    return () => {
+      navigator.geolocation.clearWatch(geoId);
+      window.cancelAnimationFrame(drawId);
+    };
+  }, [speed, speedNeedle, compassDir, compassDirNeedle, gpsStrength, lat, lon]);
 
   return (
     <div className="container-fluid">

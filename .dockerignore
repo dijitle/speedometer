@@ -3,3 +3,4 @@
 **/.vs
 .dockerignore
 Dockerfile
+.git
