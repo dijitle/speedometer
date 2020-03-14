@@ -46,7 +46,7 @@ function App() {
     let innerRadius = w / 5;
 
     let min = 0;
-    let max = 60;
+    let max = 100;
     let intervals = max / 10;
 
     ctx.lineCap = "round";
@@ -115,9 +115,7 @@ function App() {
     setLat(pos.coords.latitude);
     setLon(pos.coords.longitude);
     setGpsStrength(Math.round(pos.coords.accuracy));
-    setCompassDir(
-      pos.coords.heading === null ? 0 : Math.round(pos.coords.heading)
-    );
+    setCompassDir(pos.coords.heading === null ? 0 : pos.coords.heading);
     setSpeed(pos.coords.speed === null ? 0 : pos.coords.speed * 2.23694);
   };
 

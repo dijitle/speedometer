@@ -36,7 +36,8 @@ export function drawCompassDirection(ctx, w, compassHeading) {
   ctx.font = String(w / 40) + "px monospace";
   ctx.strokeStyle = "#000000";
   ctx.fillStyle = "#000000";
-  let compassText = direction + " : " + compassHeading + "°";
+  let compassText =
+    direction + " : " + Math.round(compassHeading * 100) / 100 + "°";
   ctx.fillText(
     compassText,
     w / 2 - ctx.measureText(compassText).width / 2,
