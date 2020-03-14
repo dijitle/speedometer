@@ -34,7 +34,12 @@ export function drawNeedle(
 export function drawDigitalSpeed(ctx, w, value) {
   ctx.lineWidth = w / 50;
   ctx.font = String(w / 8) + "px monospace";
-  ctx.fillText(value, w / 2 - ctx.measureText(value).width / 2, w / 2 + w / 4);
+
+  ctx.fillText(
+    value >= 10 ? Math.round(value) : Math.round(value * 10) / 10,
+    w / 2 - ctx.measureText(value).width / 2,
+    w / 2 + w / 4
+  );
   ctx.stroke();
 }
 

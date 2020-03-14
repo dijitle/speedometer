@@ -114,9 +114,11 @@ function App() {
   let watchPos = pos => {
     setLat(pos.coords.latitude);
     setLon(pos.coords.longitude);
-    setGpsStrength(pos.coords.accuracy);
-    setCompassDir(pos.coords.heading === null ? 0 : pos.coords.heading);
-    setSpeed(pos.coords.speed === null ? 0 : pos.coords.speed);
+    setGpsStrength(Math.round(pos.coords.accuracy));
+    setCompassDir(
+      pos.coords.heading === null ? 0 : Math.round(pos.coords.heading)
+    );
+    setSpeed(pos.coords.speed === null ? 0 : pos.coords.speed * 2.23694);
   };
 
   useEffect(() => {
