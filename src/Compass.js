@@ -1,4 +1,4 @@
-export function drawCompass(ctx, w, compassHeading) {
+export function drawCompassDirection(ctx, w, compassHeading) {
   let direction = "N";
 
   if (compassHeading > 11.25 && compassHeading <= 33.75) {
@@ -42,7 +42,9 @@ export function drawCompass(ctx, w, compassHeading) {
     w / 2 - ctx.measureText(compassText).width / 2,
     w / 2 + w / 9
   );
+}
 
+export function drawCompassNeedle(ctx, w, compassHeading) {
   ctx.lineWidth = 1;
 
   ctx.beginPath();
