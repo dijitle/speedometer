@@ -91,6 +91,6 @@ export function drawCoords(ctx, w, lat, lon) {
   ctx.fillText(
     gpsText,
     w / 2 - ctx.measureText(gpsText).width / 2,
-    w / 2 + w / 3
+    w / 2 + w / 2.75
   );
 }

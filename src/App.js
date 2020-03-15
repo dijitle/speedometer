@@ -13,6 +13,10 @@ function App() {
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
   const [gpsError, setGpsError] = useState("");
+  const [winSize, setWinSize] = useState({
+    w: window.innerWidth,
+    h: window.innerHeight
+  });
 
   const draw = () => {
     let canvas = document.getElementById("speedometer");
@@ -112,19 +116,23 @@ function App() {
     }
   };
 
-  const watchPos = ({ coords }) => {
-    setLat(coords.latitude);
-    setLon(coords.longitude);
-    setGpsStrength(Math.round(coords.accuracy));
-    setCompassDir(coords.heading === null ? 0 : coords.heading);
-    setSpeed(coords.speed === null ? 0 : coords.speed * 2.23694);
-  };
-
-  const watchPosError = err => {
-    setGpsError(err.message);
-  };
-
   useEffect(() => {
+    const handleResize = () =>
+      setWinSize({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener("resize", handleResize);
+
+    const watchPos = ({ coords }) => {
+      setLat(coords.latitude);
+      setLon(coords.longitude);
+      setGpsStrength(Math.round(coords.accuracy));
+      setCompassDir(coords.heading === null ? 0 : coords.heading);
+      setSpeed(coords.speed === null ? 0 : coords.speed * 2.23694);
+    };
+
+    const watchPosError = err => {
+      setGpsError(err.message);
+    };
+
     let options = {
       enableHighAccuracy: false,
       timeout: 60000,
@@ -135,13 +143,26 @@ function App() {
       watchPosError,
       options
     );
-    return () => navigator.geolocation.clearWatch(id);
+
+    return () => {
+      navigator.geolocation.clearWatch(id);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
     let id = window.requestAnimationFrame(draw);
     return () => window.cancelAnimationFrame(id);
-  }, [speed, speedNeedle, compassDir, compassDirNeedle, gpsStrength, lat, lon]);
+  }, [
+    speed,
+    speedNeedle,
+    compassDir,
+    compassDirNeedle,
+    gpsStrength,
+    lat,
+    lon,
+    winSize
+  ]);
 
   return (
     <div className="container-fluid">

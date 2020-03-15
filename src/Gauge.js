@@ -32,9 +32,8 @@ export function drawNeedle(
   ctx.shadowBlur = 0;
 }
 export function drawDigitalSpeed(ctx, w, value) {
-  ctx.lineWidth = w / 50;
   ctx.font = String(w / 8) + "px monospace";
-  let valueText = 10 ? Math.round(value) : Math.round(value * 10) / 10;
+  let valueText = Math.floor(value);
 
   ctx.fillText(
     valueText,
@@ -42,6 +41,18 @@ export function drawDigitalSpeed(ctx, w, value) {
     w / 2 + w / 4
   );
   ctx.stroke();
+
+  if (value < 10) {
+    ctx.font = String(w / 16) + "px monospace";
+    let decimalText = (value - Math.floor(value)).toFixed(1);
+
+    ctx.fillText(
+      decimalText.substring(1),
+      w / 2 + ctx.measureText(valueText).width / 2,
+      w / 2 + w / 4
+    );
+    ctx.stroke();
+  }
 }
 
 export function drawArc(ctx, w, width, radius, startAngle, endAngle, connect) {
