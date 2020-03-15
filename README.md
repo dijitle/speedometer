@@ -1,3 +1,17 @@
+# Dijitle Speedometer
+
+[![Build Status](https://drone.dijitle.dev/api/badges/dijitle/speedometer/status.svg)](https://drone.dijitle.dev/dijitle/speedometer)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/dijitle/speedometer?label=release)](https://github.com/dijitle/speedometer/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dijitle/speedometer)](https://hub.docker.com/r/dijitle/speedometer)
+
+Web-based Speedometer, compass and GPS coordinate application
+
+## endpoints
+
+[![web](https://img.shields.io/badge/Web-Link-blue?style=flat)](https://speedometer.dijitle.com)
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

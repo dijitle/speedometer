@@ -47,9 +47,9 @@ export function drawGPS(ctx, w, strength) {
   }
 
   ctx.font = String(w / 40) + "px monospace";
-  ctx.strokeStyle = "#000000";
-  ctx.fillStyle = "#000000";
-  let gpsText = "GPS: +/-" + strength + "m";
+  ctx.strokeStyle = "#ffffff";
+  ctx.fillStyle = "#ffffff";
+  let gpsText = "GPS: ±" + strength + "m";
   ctx.fillText(
     gpsText,
     w / 2 - ctx.measureText(gpsText).width / 2,
@@ -59,8 +59,8 @@ export function drawGPS(ctx, w, strength) {
 
 export function drawCoords(ctx, w, lat, lon) {
   ctx.font = String(w / 35) + "px monospace";
-  ctx.strokeStyle = "#000000";
-  ctx.fillStyle = "#000000";
+  ctx.strokeStyle = "#ffffff";
+  ctx.fillStyle = "#ffffff";
 
   let latDeg = Math.floor(Math.abs(lat));
   let latMin = Math.floor((Math.abs(lat) - latDeg) * 60);

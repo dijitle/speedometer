@@ -15,7 +15,7 @@ export function drawNeedle(
     (2 * Math.PI - (startAngle - endAngle)) * percentSpeed + startAngle;
 
   ctx.beginPath();
-  ctx.strokeStyle = "#FF0000";
+  ctx.strokeStyle = "#ff2410";
   ctx.lineWidth = w / 50;
   ctx.moveTo(
     w / 2 + innerRadius * 1.075 * Math.cos(angleOfSpeedometer),
@@ -25,7 +25,7 @@ export function drawNeedle(
     w / 2 + outerRadius * 0.9 * Math.cos(angleOfSpeedometer),
     w / 2 + outerRadius * 0.9 * Math.sin(angleOfSpeedometer)
   );
-  ctx.shadowColor = "black";
+  ctx.shadowColor = "gray";
   ctx.shadowBlur = 15;
   ctx.stroke();
 

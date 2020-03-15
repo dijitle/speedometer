@@ -53,8 +53,8 @@ function App() {
 
     ctx.clearRect(0, 0, w, w);
 
-    ctx.strokeStyle = "#000000";
-    ctx.fillStyle = "#000000";
+    ctx.strokeStyle = "#424242";
+    ctx.fillStyle = "#ffffff";
 
     drawArc(ctx, w, w / 20, outerRadius, startAngle, endAngle, false);
     drawArc(ctx, w, w / 50, innerRadius, startAngle, endAngle, true);

@@ -34,8 +34,7 @@ export function drawCompassDirection(ctx, w, compassHeading) {
   }
 
   ctx.font = String(w / 40) + "px monospace";
-  ctx.strokeStyle = "#000000";
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#ffffff";
   let compassText =
     direction + " : " + Math.round(compassHeading * 100) / 100 + "°";
   ctx.fillText(
@@ -48,6 +47,7 @@ export function drawCompassDirection(ctx, w, compassHeading) {
 export function drawCompassNeedle(ctx, w, compassHeading) {
   ctx.lineWidth = 1;
 
+  ctx.strokeStyle = "#ffffff";
   ctx.beginPath();
   ctx.moveTo(w / 2, w / 2 - w / 20);
   ctx.lineTo(w / 2, w / 2 + w / 20);
@@ -62,6 +62,7 @@ export function drawCompassNeedle(ctx, w, compassHeading) {
 
   let compassHeadingRadians = (compassHeading * Math.PI) / 180;
 
+  ctx.strokeStyle = "#000000";
   ctx.translate(w / 2, w / 2);
   ctx.rotate(compassHeadingRadians);
   ctx.translate(-w / 2, -w / 2);
@@ -72,6 +73,8 @@ export function drawCompassNeedle(ctx, w, compassHeading) {
   ctx.lineTo(w / 2, w / 2 - w / 20);
   ctx.lineTo(w / 2 - w / 75, w / 2);
   ctx.fill();
+  ctx.shadowColor = "gray";
+  ctx.shadowBlur = 15;
   ctx.stroke();
 
   ctx.beginPath();
@@ -80,6 +83,8 @@ export function drawCompassNeedle(ctx, w, compassHeading) {
   ctx.lineTo(w / 2 + w / 75, w / 2);
   ctx.fillStyle = "#ffffff";
   ctx.fill();
+  ctx.shadowColor = "gray";
+  ctx.shadowBlur = 15;
   ctx.stroke();
   ctx.translate(w / 2, w / 2);
   ctx.rotate(-compassHeadingRadians);
