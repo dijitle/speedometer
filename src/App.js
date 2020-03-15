@@ -120,12 +120,13 @@ function App() {
   };
 
   useEffect(() => {
-    const geoId = navigator.geolocation.watchPosition(watchPos);
-    const drawId = window.requestAnimationFrame(draw);
-    return () => {
-      navigator.geolocation.clearWatch(geoId);
-      window.cancelAnimationFrame(drawId);
-    };
+    let geoId = navigator.geolocation.watchPosition(watchPos);
+    return () => navigator.geolocation.clearWatch(geoId);
+  }, []);
+
+  useEffect(() => {
+    let drawId = window.requestAnimationFrame(draw);
+    return () => window.cancelAnimationFrame(drawId);
   }, [speed, speedNeedle, compassDir, compassDirNeedle, gpsStrength, lat, lon]);
 
   return (
