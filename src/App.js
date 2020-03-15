@@ -12,8 +12,9 @@ function App() {
   const [gpsStrength, setGpsStrength] = useState(0);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
+  const [gpsError, setGpsError] = useState("");
 
-  let draw = () => {
+  const draw = () => {
     let canvas = document.getElementById("speedometer");
     let ctx = canvas.getContext("2d");
     ctx.scale(2, 2);
@@ -111,27 +112,41 @@ function App() {
     }
   };
 
-  let watchPos = pos => {
-    setLat(pos.coords.latitude);
-    setLon(pos.coords.longitude);
-    setGpsStrength(Math.round(pos.coords.accuracy));
-    setCompassDir(pos.coords.heading === null ? 0 : pos.coords.heading);
-    setSpeed(pos.coords.speed === null ? 0 : pos.coords.speed * 2.23694);
+  const watchPos = ({ coords }) => {
+    setLat(coords.latitude);
+    setLon(coords.longitude);
+    setGpsStrength(Math.round(coords.accuracy));
+    setCompassDir(coords.heading === null ? 0 : coords.heading);
+    setSpeed(coords.speed === null ? 0 : coords.speed * 2.23694);
+  };
+
+  const watchPosError = err => {
+    setGpsError(err.message);
   };
 
   useEffect(() => {
-    let geoId = navigator.geolocation.watchPosition(watchPos);
-    return () => navigator.geolocation.clearWatch(geoId);
+    let options = {
+      enableHighAccuracy: false,
+      timeout: 60000,
+      maximumAge: 0
+    };
+    let id = navigator.geolocation.watchPosition(
+      watchPos,
+      watchPosError,
+      options
+    );
+    return () => navigator.geolocation.clearWatch(id);
   }, []);
 
   useEffect(() => {
-    let drawId = window.requestAnimationFrame(draw);
-    return () => window.cancelAnimationFrame(drawId);
+    let id = window.requestAnimationFrame(draw);
+    return () => window.cancelAnimationFrame(id);
   }, [speed, speedNeedle, compassDir, compassDirNeedle, gpsStrength, lat, lon]);
 
   return (
     <div className="container-fluid">
       <canvas id="speedometer"></canvas>
+      <div style={{ color: "#ff0000" }}>{gpsError}</div>
     </div>
   );
 }
