@@ -15,7 +15,7 @@ function App() {
   const [gpsError, setGpsError] = useState("");
   const [winSize, setWinSize] = useState({
     w: window.innerWidth,
-    h: window.innerHeight
+    h: window.innerHeight,
   });
 
   const draw = () => {
@@ -129,14 +129,14 @@ function App() {
       setSpeed(coords.speed === null ? 0 : coords.speed * 2.23694);
     };
 
-    const watchPosError = err => {
+    const watchPosError = (err) => {
       setGpsError(err.message);
     };
 
     let options = {
-      enableHighAccuracy: false,
+      enableHighAccuracy: true,
       timeout: 60000,
-      maximumAge: 0
+      maximumAge: 0,
     };
     let id = navigator.geolocation.watchPosition(
       watchPos,
@@ -161,7 +161,7 @@ function App() {
     gpsStrength,
     lat,
     lon,
-    winSize
+    winSize,
   ]);
 
   return (
